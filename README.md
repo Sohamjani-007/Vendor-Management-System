@@ -119,7 +119,7 @@ Baam !! Its done.
 5. To Run the project manually we can run the following command.
 
    ```
-   poetry run python manage.py runserver
+   poetry run python manage.py runserver 8666
    ```
 
 6. Generate `requirements.txt` file from the `pyproject.toml` file.
@@ -131,6 +131,164 @@ Baam !! Its done.
       ```shell
         poetry export --without-hashes --format=requirements.txt > requirements.txt
        ```
+
+
+#  Testing in Local on Postman (CURL COMMAND GIVEN BELOW TO DIRECTLY COPY PASTE IN POSTMAN):::
+
+POST API - Create a new vendor
+```commandline
+curl --location 'http://localhost:8666/api/create-vendors/' \
+--header 'Content-Type: application/json' \
+--data '{
+    "name": "Anurag",
+    "contact_details": "Anurag Markets Vendor Details",
+    "address": "HSR Banglore",
+    "vendor_code": "VENDOR113",
+    "on_time_delivery_rate": 95.0,
+    "quality_rating_avg": 4.5,
+    "average_response_time": 24.0,
+    "fulfillment_rate": 99.0
+}
+'
+```
+GET --> Get all the vendors list.
+```commandline
+curl --location 'http://localhost:8666/api/vendors/' \
+--data ''
+```
+GET --> Get a particular vendor detail.
+```commandline
+curl --location 'http://localhost:8666/api/vendors/1/' \
+--data ''
+```
+PUT --> This PUT API will update any details for a given lender. Given by ID
+```commandline
+curl --location --request PUT 'http://localhost:8666/api/vendors/2/' \
+--header 'Content-Type: application/json' \
+--data '{
+    "name": "Anurag",
+    "contact_details": "Anurag-Grocery Markets Vendor Details",
+    "address": "HSR Banglore",
+    "vendor_code": "VENDOR113",
+    "on_time_delivery_rate": 95.0,
+    "quality_rating_avg": 4.5,
+    "average_response_time": 24.0,
+    "fulfillment_rate": 99.0
+}
+'
+```
+DELETE --> This will delete a particular vendor given by ID.
+```commandline
+curl --location --request DELETE 'http://localhost:8666/api/vendors/3/' \
+--data ''
+```
+
+## NOTE :: Here is a test suite demonstrating the functionality and reliability of the endpoints.
+#### FROM HERE BELOW API's ARE TOKEN AUTHENTICATED. (EVERYTHING IS GIVEN IN CURL FOR TESTING.)
+#### HEADER : Authorization Token 8560d16694d9d1a53009145de85bc088be73371a
+
+POST --> Create new Purchase Order.
+```commandline
+curl --location 'http://localhost:8666/api/purchase_orders/' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: Token 8560d16694d9d1a53009145de85bc088be73371a' \
+--data '{
+    "po_number": "PO12335131",
+    "vendor": 1,
+    "order_date": "2024-05-01T08:00:00",
+    "delivery_date": "2024-05-15T08:00:00",
+    "items": [
+        {
+            "name": "Cadbury Bites",
+            "description": "Chocolate",
+            "unit_price": 10.50,
+            "quantity": 2
+        },
+        {
+            "name": "Sting",
+            "description": "Glucose",
+            "unit_price": 15.75,
+            "quantity": 1
+        }
+    ],
+    "quantity": 3,
+    "status": "pending",
+    "quality_rating": 4.5,
+    "acknowledgment_date": "2024-04-30T10:00:00"
+}
+'
+```
+GET --> To fetch a particular purchase_order.
+```commandline
+curl --location 'http://localhost:8666/api/purchase_orders/1/' \
+--header 'Content-Type: application/json' \
+--header 'Authorization: Token 8560d16694d9d1a53009145de85bc088be73371a' \
+--data ''
+```
+GET --> To fetch all the Purchase Orders.
+```commandline
+curl --location 'http://localhost:8666/api/purchase_orders/' \
+--header 'Authorization: Token 8560d16694d9d1a53009145de85bc088be73371a'
+```
+PUT --> Update a particular record by given PurchaseOrder ID.
+```commandline
+curl --location --request PUT 'http://localhost:8666/api/purchase_orders/5/' \
+--header 'Content-Type: application/json' \
+--data '{
+    "po_number": "PO12335111",
+    "vendor": 1,
+    "order_date": "2024-05-01T08:00:00",
+    "delivery_date": "2024-05-15T08:00:00",
+    "items": [
+        {
+            "name": "Cadbury Bite",
+            "description": "Chocolate",
+            "unit_price": 10.50,
+            "quantity": 2
+        },
+        {
+            "name": "Sting",
+            "description": "Glucose",
+            "unit_price": 15.75,
+            "quantity": 1
+        }
+    ],
+    "quantity": 3,
+    "status": "pending",
+    "quality_rating": 4.5,
+    "acknowledgment_date": "2024-04-30T10:00:00"
+}
+'
+```
+DELETE --> Delete a particular PurchaseOrder entry by giving ID.
+  ```commandline
+  curl --location --request DELETE 'http://localhost:8666/api/purchase_orders/2/' \
+  --data ''
+  ```
+
+GET --> PERFOMANCE MATRIX :: NOTE :: DEPENDS ON THE DATA MATRIX IS CALCULATED.
+```commandline
+curl --location 'http://localhost:8666/api/vendors/1/performance/' \
+--header 'Authorization: Token 8560d16694d9d1a53009145de85bc088be73371a'
+```
+POST --> /api/purchase_orders/{po_id}/acknowledge
+```commandline
+curl --location --request POST 'http://localhost:8666/api/purchase_orders/1/acknowledge/' \
+--header 'Authorization: Token 8560d16694d9d1a53009145de85bc088be73371a' \
+--data ''
+```
+POST --> Token Authentication API to fetch the Token Credentials.
+```commandline
+curl --location 'http://127.0.0.1:8666/api-token-auth/' \
+--header 'Content-Type: application/json' \
+--header 'Cookie: csrftoken=sdUpVT8JkemOalwakq53dYC2Mj7FDF9U' \
+--data '{
+    "username": "soham",
+    "password": "Starson007"
+}'
+```
+
+
 
 # Setting up Postgres in local
 
@@ -171,50 +329,6 @@ Baam !! Its done.
       ```
       ```
       ALTER USER postgres WITH PASSWORD 'postgres';
-      ```
-
-
-# Setting up Redis in local.
-
-1. Install redis cache in the system
-
-  * mac os
-
-  ```commandline
-  brew install redis
-  ```
-
-   * linux(any)
-
-  ```commandline
-  sudo apt-get install redis
-  ```
-
-  or
-
-  ```commandline
-  sudo snap install redis --classic
-  ```
-
-## OR
-
-2. Installing via docker
-    * pull the latest docker redis server image.
-
-      ```dockerfile
-      docker run --name local-redis -p 6379:6379 -d redis
-      ```
-
-    * to check the server logs
-
-      ```dockerfile
-      docker logs local-redis
-      ```
-
-    * To loging into the redis server(for any reason)
-
-      ```dockerfile
-      docker exec -it local-redis redis-cli
       ```
 
 
