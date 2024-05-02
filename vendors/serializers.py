@@ -6,29 +6,37 @@ class VendorSerializer(serializers.ModelSerializer):
     class Meta:
         model = Vendor
         fields = [
-            'id', 'name', 'contact_details', 'address', 'vendor_code',
-            'on_time_delivery_rate', 'quality_rating_avg',
-            'average_response_time', 'fulfillment_rate'
+            "id",
+            "name",
+            "contact_details",
+            "address",
+            "vendor_code",
+            "on_time_delivery_rate",
+            "quality_rating_avg",
+            "average_response_time",
+            "fulfillment_rate",
         ]
         extra_kwargs = {
-            'name': {'required': True},
-            'contact_details': {'required': True},
-            'address': {'required': True},
-            'vendor_code': {'required': True},
+            "name": {"required": True},
+            "contact_details": {"required": True},
+            "address": {"required": True},
+            "vendor_code": {"required": True},
             # The following fields are not required and will default to 0.0 if not provided
-            'on_time_delivery_rate': {'required': False, 'default': 0.0},
-            'quality_rating_avg': {'required': False, 'default': 0.0},
-            'average_response_time': {'required': False, 'default': 0.0},
-            'fulfillment_rate': {'required': False, 'default': 0.0},
+            "on_time_delivery_rate": {"required": False, "default": 0.0},
+            "quality_rating_avg": {"required": False, "default": 0.0},
+            "average_response_time": {"required": False, "default": 0.0},
+            "fulfillment_rate": {"required": False, "default": 0.0},
         }
 
 
 class PurchaseOrderSerializer(serializers.ModelSerializer):
-    vendor_name = serializers.ReadOnlyField(source='vendor.name')  # Add a read-only field for vendor name
+    vendor_name = serializers.ReadOnlyField(
+        source="vendor.name"
+    )  # Add a read-only field for vendor name
 
     class Meta:
         model = PurchaseOrder
-        fields = '__all__'
+        fields = "__all__"
 
     def validate_quantity(self, value):
         """
@@ -60,4 +68,9 @@ class PurchaseOrderSerializer(serializers.ModelSerializer):
 class VendorPerformanceSerializer(serializers.ModelSerializer):
     class Meta:
         model = Vendor
-        fields = ['on_time_delivery_rate', 'quality_rating_avg', 'average_response_time', 'fulfillment_rate']
+        fields = [
+            "on_time_delivery_rate",
+            "quality_rating_avg",
+            "average_response_time",
+            "fulfillment_rate",
+        ]

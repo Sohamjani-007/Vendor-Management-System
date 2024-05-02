@@ -3,6 +3,14 @@
 
 This project contains codeBase for all vendor related, integration, financial calculations related implementation.
 
+
+# Following the instructions to Generate database diagram(ERD) with Django Extensions Automatically.
+![img.png](docs/img/imagefile_name.png)
+
+(https://www.linkedin.com/pulse/generate-database-diagramerd-django-extensions-automatically-srujan-s/
+) AND (https://www.wplogout.com/export-database-diagrams-erd-from-django/)
+
+
 ***
 [![pre-commit](https://img.shields.io/badge/pre--commit-enabled-brightgreen?logo=pre-commit&logoColor=white)](https://github.com/pre-commit/pre-commit)
 ***
@@ -63,7 +71,7 @@ python 3.11 -m poetry
 ```
 5) Close the shell --> Add new Interpreter --> Local --> Poetry Environment Existing --> 3.11.5
 
-6) Close the terminal and Start again. 
+6) Close the terminal and Start again.
 
 Baam !! Its done.
 
@@ -103,7 +111,7 @@ Baam !! Its done.
    ```
    * Will show the complete path and the packages installed.
 
-4. To activate the terminal 
+4. To activate the terminal
     ```
    poetry shell
    ```
@@ -130,7 +138,7 @@ Baam !! Its done.
    - [x][Postgres Installation for all Systems](https://www.timescale.com/blog/how-to-install-psql-on-mac-ubuntu-debian-windows/)
 
 
-2.  Facing > django.db.utils.OperationalError: connection to server at "localhost" (127.0.0.1), port 5432 failed: FATAL:  password authentication failed for user "postgres"?. Follow below lines : 
+2.  Facing > django.db.utils.OperationalError: connection to server at "localhost" (127.0.0.1), port 5432 failed: FATAL:  password authentication failed for user "postgres"?. Follow below lines :
 
     * Step 1: Check the status of the Postgres cluster.
     ```
@@ -153,7 +161,7 @@ Baam !! Its done.
       ```
       psql
       ```
-      
+
 3. Facing > django.db.utils.OperationalError: connection to server at "localhost" (127.0.0.1), port 5432 failed: FATAL:  database "otolmsdbloc" does not exist. Facing this error?. Follow below steps:
       ```
       sudo -i u postgres
@@ -175,21 +183,21 @@ Baam !! Its done.
   ```commandline
   brew install redis
   ```
-       
+
    * linux(any)
 
   ```commandline
   sudo apt-get install redis
   ```
-       
+
   or
 
   ```commandline
   sudo snap install redis --classic
   ```
- 
-## OR 
-       
+
+## OR
+
 2. Installing via docker
     * pull the latest docker redis server image.
 
@@ -198,13 +206,13 @@ Baam !! Its done.
       ```
 
     * to check the server logs
-   
+
       ```dockerfile
       docker logs local-redis
       ```
 
     * To loging into the redis server(for any reason)
-      
+
       ```dockerfile
       docker exec -it local-redis redis-cli
       ```
@@ -241,23 +249,23 @@ Baam !! Its done.
      ```commandline
      python3 -m pip install pre-commit
      ```
-     
+
 * Configuring pre-commit hooks.
 
 1. To configure the pre-commits hooks run the following command.
-  
+
   * if you install via python3 method.
-  
+
     ```commandline
     python3 -m pre_commit install
     ```
-  
+
   * if you installed via apt or brew run the following command to install.
-  
+
      ```commandline
      pre-commit install
      ```
-    
+
   * For manually running the commit hooks without even staging the files.
 
       ```commandline

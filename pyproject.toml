@@ -9,6 +9,10 @@ readme = "README.md"
 python = "^3.11"
 django = "^5.0.4"
 djangorestframework = "^3.15.1"
+django-extensions = "^3.2.3"
+graphviz = "^0.20.3"
+pyparsing = "^3.1.2"
+pydot = "^2.0.0"
 
 
 [build-system]

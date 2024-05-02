@@ -14,6 +14,7 @@ class Vendor(models.Model):
     details, address, and a unique vendor code.
     This model stores essential information about each vendor and their performance metrics.
     """
+
     name = models.CharField(max_length=100)
     contact_details = models.TextField()
     address = models.TextField()
@@ -38,6 +39,7 @@ class PurchaseOrder(models.Model):
     This model captures the details of each purchase order and is used to calculate various
     performance metrics.
     """
+
     po_number = models.CharField(max_length=100, unique=True)
     vendor = models.ForeignKey(Vendor, on_delete=models.CASCADE)
     order_date = models.DateTimeField()
@@ -60,6 +62,7 @@ class HistoricalPerformance(models.Model):
     """
     HistoricalPerformance Model optionally stores historical data on vendor performance, enabling trend analysis.
     """
+
     vendor = models.ForeignKey(Vendor, on_delete=models.CASCADE)
     date = models.DateTimeField()
     on_time_delivery_rate = models.FloatField()

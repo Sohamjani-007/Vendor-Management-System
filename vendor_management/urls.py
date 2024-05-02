@@ -16,10 +16,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from rest_framework.authtoken.views import obtain_auth_token  # To generate a new Token for new User.
+from rest_framework.authtoken.views import (
+    obtain_auth_token,
+)  # To generate a new Token for new User.
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path("admin/", admin.site.urls),
     path("api/", include("vendors.urls")),
-    path('api-token-auth/', obtain_auth_token, name='api_token_auth'), # Hit this endpoint to create new User Token Auth.
+    path(
+        "api-token-auth/", obtain_auth_token, name="api_token_auth"
+    ),  # Hit this endpoint to create new User Token Auth.
 ]
